@@ -13,3 +13,21 @@
 
 
 1.4 Meet Cats
+
+Show: toString をいいかんじにじっそうしてくれる
+値 val : A を,　String に変換してくれる
+
+
+implicit の解決に cats.instasnces.int._ が必要
+
+cats.instances.int の中には、 Show 用の implicit値がある
+
+cats.kernel.instances.IntInstances を継承しており、そこでは
+ catsKernelStdOrderForInt
+ catsKernelStdGroupForInt
+の2つが定義されている。
+... kernel はなにをするところだろう？
+
+
+これだけだとあまりありがたみがわからず。。。
+int からString には暗黙の型変換してるからねぇ。。。

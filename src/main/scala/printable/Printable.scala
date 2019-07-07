@@ -5,7 +5,7 @@ trait Printable[A] {
 }
 
 object Printable {
-  def format[A](value: A)(implicit printable: Printable[A]): String = printable(value)
+  def format[A](value: A)(implicit printable: Printable[A]): String = format(value)
 
   def print[A](value: A)(implicit printable: Printable[A]): Unit = println(value)
 }
