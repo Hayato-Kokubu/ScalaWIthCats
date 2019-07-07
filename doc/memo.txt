@@ -1,0 +1,15 @@
+
+1.2.3 Recursive Implicit Resolution
+
+  Option[A]でやりたいが、object では型引数をとれないため
+  implicit def で(メソッド定義で)やる
+
+  Option をやる場合には、None.type が 型クラスインスタンスでなければならない？
+
+
+
+1.3 Exercise: Printable Library
+  回答見ない版でやった
+
+
+1.4 Meet Cats
