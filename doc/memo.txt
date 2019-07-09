@@ -31,3 +31,18 @@ cats.kernel.instances.IntInstances を継承しており、そこでは
 
 これだけだとあまりありがたみがわからず。。。
 int からString には暗黙の型変換してるからねぇ。。。
+
+
+import cats._ // 全てのCatsの型クラス が使える
+import cats.instasnces.all._ // 全てのCats の型クラスインスタンス が使える
+import cats.syntax.all._  // 全てのsyntax // syntax とは？
+import cats.implicits._ //
+
+
+
+が、あまり使わない方がいいかも？
+特に、何を使うのかがわからなくなりそう
+
+
+
+
