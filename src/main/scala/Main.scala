@@ -1,7 +1,6 @@
 import exercise.Cat
 import exercise.CatImplicits._
-import printable.Printable
-
+import printable.PrintableSyntax._
 
 object Main extends App{
 
@@ -9,7 +8,7 @@ object Main extends App{
   val mike = Cat("Mike", 1, "blown")
   val tama = Cat("Tama", 4, "blown")
 
-  Printable.print(tora)
-  Printable.print(mike)
-  Printable.print(tama)
+  tora.print
+  mike.print
+  tama.print
 }
