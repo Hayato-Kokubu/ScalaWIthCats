@@ -20,3 +20,11 @@ associativeLaw
   結合則
 identityLaw
   単位元
+
+SemiGroup
+  empty フィールドがない もの
+
+自然数(0 を含まない)の足し算
+空文字を含まない文字列の結合
+空リストを含まないリスト    <- NonEmptyList はSemiGroup のimpl
+
