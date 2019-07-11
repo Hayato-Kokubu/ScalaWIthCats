@@ -1,0 +1,22 @@
+monoid, semiGroup
+たす , まとめる　という操作を一般かする
+
+・二項演算 であって (足した結果が同じ型である)
+・単位元がある
+・結合則を満たす
+
+Int の 足し算
+Int の 掛け算
+String の結合
+List の結合
+
+
+型A がMonoid であるとは
+・メソッド   combine : (A, A) => A
+・フィールド empty: A をもつ
+
+
+associativeLaw
+  結合則
+identityLaw
+  単位元

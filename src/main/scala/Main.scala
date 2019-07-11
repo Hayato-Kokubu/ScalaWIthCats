@@ -3,6 +3,7 @@ object Main extends App{
 
 }
 
-sealed trait A
-final case object B extends A
-final case object C extends A
+trait Monoid[A] {
+  def combine(a1: A, a2: A): A
+  def empty: A
+}
