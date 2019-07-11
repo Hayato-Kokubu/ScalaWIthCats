@@ -45,4 +45,19 @@ import cats.implicits._ //
 
 
 
+ex はあとでやろう
+とりあえずEq に進む
+
+
+Eq : == をいい感じにしてくれる
+val b = List(1, 2, 3).map(Option(_)).filter(item => item == 1)
+  コンパイル時にエラーとなる 特に、実行じエラーにはならなかった
+Error:(2, 60) Option[Int] and Int are unrelated: they will most likely never compare equal
+  val b = List(1, 2, 3).map(Option(_)).filter(item => item == 1)
+
+Equality,
+Liberty,
+Fraternity
+
+
 
