@@ -91,5 +91,13 @@ Show -> Show object のshow メソッド
 Eq   -> Eq.instance
 
 
+問題1.3
+
+toString: 限定的にしか使わない。
+          tokubetuna
+          特別な型に対して特別な実装を組み込むことができない
+          // override すればいいのでは？
+
+
 
 
