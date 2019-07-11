@@ -59,5 +59,12 @@ Equality,
 Liberty,
 Fraternity
 
+import cats.syntax.eq._　をインポートすると、 === =!= を使える。
+Eq[Int]を明示的に呼ぶ必要はないが、
+import cats.instances.int._  // Eq[Int]で Eq[Int]が必要
+import cats.syntax.eq._  // to use === or =!=
+は必要
+
+
 
 
