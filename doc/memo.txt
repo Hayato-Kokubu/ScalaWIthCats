@@ -99,5 +99,13 @@ toString: 限定的にしか使わない。
           // override すればいいのでは？
 
 
+implicit val で定義するのと implicit object で定義するのとの違い
+
+implicit object の方は、初期化が遅い
+
+
+new Trait {} という構文は、Trait trait を継承した無名クラスのインスタンスを作成する という意味
+Java の関数型Interface とは異なり、複数のmethod でも
+
 
 

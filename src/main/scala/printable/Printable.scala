@@ -11,13 +11,25 @@ object Printable {
 }
 
 
-object PrintableInstances{
+//object PrintableInstancesWithObject{
+//
+//  implicit object StringPrintable extends Printable[String] {
+//    override def format(value: String): String = value
+//  }
+//
+//  implicit object IntPrintable extends Printable[Int] {
+//    override def format(value: Int): String = value.toString
+//  }
+//}
 
-  implicit object StringPrintable extends Printable[String] {
+
+object PrintableImplicits {
+
+  implicit val stringPrintable = new Printable[String] {
     override def format(value: String): String = value
   }
 
-  implicit object IntPrintable extends Printable[Int] {
+  implicit val intPrintable = new Printable[Int]{
     override def format(value: Int): String = value.toString
   }
 }
