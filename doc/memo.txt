@@ -109,3 +109,5 @@ Java の関数型Interface とは異なり、複数のmethod でも
 
 
 
+1.3 Printable の応用
+furry: もふもふな
