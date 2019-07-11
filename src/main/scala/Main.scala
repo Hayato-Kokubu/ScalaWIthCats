@@ -1,19 +1,17 @@
-import cats.Eq
-import cats.instances.int._  // Eq[Int]で Eq[Int]が必要
-import cats.syntax.eq._  // to use === or =!=
-import cats.instances.option._
-import cats.syntax.option._
+import java.time.LocalDateTime
+
+import cats.syntax.eq._
+import EqImplicits._
 
 object Main extends App{
 
-//  val t1 = Some(1) === None // None がOption[Int]だと見なされない
-  val t2 = (Some(1) : Option[Int]) === (None : Option[Int])
-  val t3 = Option(1) === Option.empty[Int] // left side: not Some , right side: empty method で型を入れられる
+  val x = LocalDateTime.of(2019, 7, 11, 13, 10, 0)
+  val y = LocalDateTime.of(2019, 7, 11, 13, 10, 1)
 
-  val b1 = 1.some === none[Int]
-  val b2 = 1.some =!= none[Int]
+  val b1 = x.equals(y)
+  val b2 = x === y
 
-  println(b1)
-  println(b2)
+  println(b1)  // 普通に比較するとfalse
+  println(b2)  // EqImplicits の比較方法ではtrue
 
 }
