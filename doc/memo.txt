@@ -70,3 +70,26 @@ Error:scalac: there was one deprecation warning (since 2.11.0); re-run with -dep
 Option() がダメっぽい
 
 
+1.6 どのinstanceがつ変われるか？ // 変位の話
+
+trait F[+A]  // covariant
+  A < B ならば F[A] < F[B] が成り立つ
+
+Cat < Animal であるときに、List[Cat] < List[Animal]
+
+contraVariant
+
+trait[-A]
+
+処理 を表現する際に便利  // 詳しく見たいが、あとで
+
+
+Ch1 まとめ
+
+どのtype class も、conpanion object に instanceを作るメソッドがある
+Show -> Show object のshow メソッド
+Eq   -> Eq.instance
+
+
+
+
