@@ -28,3 +28,18 @@ SemiGroup
 空文字を含まない文字列の結合
 空リストを含まないリスト    <- NonEmptyList はSemiGroup のimpl
 
+Monoid ならば SemiGroup
+
+2.3
+
+*: (Boolean, Boolean) -> Boolean
+      (b1, b2)       |->    b1 * b2
+
+MonoidTester を使った結果・・・
+((true,true,true,false),false)  =>   OR (= NOT AND)
+((true,false,false,true),true)  =>  AND
+((true,false,false,false),true) => NAND (= NOT XOR)
+((false,true,true,false),false) =>  XOR
+
+Boolean のMonoid は、本質的には OR と XOR  の2種類
+

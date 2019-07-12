@@ -1,23 +1,51 @@
-import cats.syntax.eq._
-import exercise.Cat
-import exercise.CatImplicits._
-import exercise.CatSyntax._
+import exercise.MonoidTester
 
 object Main extends App{
 
-  val tora = Cat("Tora", 2, "black")
-  val mike = Cat("Mike", 1, "blown")
-  val tama = Cat("Tama", 4, "blown")
-  val tora$ = Cat("Tora", 2, "black")
+  val anyBooleanTriples = Seq(
+    (true, true, true),
+    (true, true, false),
+    (true, false, true),
+    (true, false, false),
+    (false, true, true),
+    (false, true, false),
+    (false, false, true),
+    (false, false, false),
+  )
 
-  println(tora.show)
-  println(mike.show)
-  println(tama.show)
+  val allBooleanOperations = Seq(
+    ( true,  true,  true,  true),
+    ( true,  true,  true, false),
+    ( true,  true, false,  true),
+    ( true,  true, false, false),
+    ( true, false,  true,  true),
+    ( true, false,  true, false),
+    ( true, false, false,  true),
+    ( true, false, false, false),
+    (false,  true,  true,  true),
+    (false,  true,  true, false),
+    (false,  true, false,  true),
+    (false,  true, false, false),
+    (false, false,  true,  true),
+    (false, false,  true, false),
+    (false, false, false,  true),
+    (false, false, false, false),
+  )
 
-  val b1 = tora === mike
-  val b2 = tora === tora$
+  val identityCandidates = Seq(true, false)
 
-  println(b1)
-  println(b2)
+  def * (op : ( Boolean, Boolean, Boolean, Boolean ) ): (Boolean, Boolean) => Boolean = {
+    case (true, true) => op._1
+    case (true, false) => op._2
+    case (false, true) => op._3
+    case (false, false) => op._4
+  }
 
+  val booleanMonoids = for {
+    op <- allBooleanOperations
+    e <- identityCandidates
+    if anyBooleanTriples.forall{ bt => new MonoidTester[Boolean](e, bt)(*(op)).test}
+  } yield (op, e)
+
+  booleanMonoids.foreach(println)
 }
