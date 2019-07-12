@@ -1,6 +1,7 @@
 import cats.Show
 import exercise.Cat
 import exercise.CatImplicits._
+import exercise.CatSyntax._
 
 object Main extends App{
 
@@ -9,7 +10,7 @@ object Main extends App{
   val tama = Cat("Tama", 4, "blown")
 
   val catsShow = implicitly[Show[Cat]]
-  println(catsShow.show(tora))
-  println(catsShow.show(mike))
-  println(catsShow.show(tama))
+  println(tora.show)
+  println(mike.show)
+  println(tama.show)
 }
