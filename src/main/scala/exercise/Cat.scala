@@ -3,6 +3,7 @@ package exercise
 import cats.instances.int._
 import cats.instances.string._
 import cats.syntax.show._
+import cats.syntax.eq._
 import cats.Show
 import cats.kernel.Eq
 import printable.Printable
@@ -22,7 +23,7 @@ object CatImplicits {
   }
 
   implicit val catalogEq: Eq[Cat] = Eq.instance[Cat]{(cat1, cat2) =>
-    cat1.name == cat2.name && cat1.age == cat2.age && cat1.color == cat2.color
+    cat1.name === cat2.name && cat1.age === cat2.age && cat1.color === cat2.color
   }
 }
 
