@@ -1,4 +1,4 @@
-package exercise
+package exercise.ch2
 
 class MonoidTester[A](e: A, anyTriples : (A,A,A) )( * : (A, A) => A ) {
 
