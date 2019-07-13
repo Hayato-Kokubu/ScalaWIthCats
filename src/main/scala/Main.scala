@@ -7,8 +7,8 @@ import cats.syntax.option._
 object Main extends App{
 
 
-  val resultInt = new SuperAdder[Int].add(List(1,2,3))
-  val resultOptionInt = new SuperAdder[Option[Int]].add(List(1.some,2.some,3.some, none))
+  val resultInt = new SuperAdder().add(List(1,2,3))
+  val resultOptionInt = new SuperAdder().add(List(1.some,2.some,3.some, none))
 
   println(resultInt)
   println(resultOptionInt)

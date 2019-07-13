@@ -3,9 +3,9 @@ package exercise.ch2.superAdder
 import cats.Monoid
 import cats.syntax.semigroup._
 
-class SuperAdder[A] {
-  def add(items: List[A])(implicit m: Monoid[A]): A =
-    items.foldLeft( m.empty ){case (res, acc) =>
+class SuperAdder {
+  def add[A: Monoid](items: List[A]): A =
+    items.foldLeft( Monoid[A].empty ){case (res, acc) =>
       res |+| acc
   }
 }
