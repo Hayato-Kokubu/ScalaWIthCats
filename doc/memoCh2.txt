@@ -43,6 +43,11 @@ MonoidTester を使った結果・・・
 
 Boolean のMonoid は、本質的には OR と XOR  の2種類
 
+
+Z/2Z の
+OR ... 和 , XOR ... 積に対応
+
+
 2.4
 
 Set の共通部分 は semi group を作る
@@ -52,3 +57,28 @@ Set の共通部分 は semi group を作る
 
 対称差: A (テンソル) B  => 一方のみに属するもの は Monoid になる
 (もっと言うと逆元を持つからアーベル群になる)
+
+2.5
+
+3つの要素 の考察
+・type class
+・instances
+・interface
+
+Monoid
+
+・type class => cats.kernel.Monoid (extends cats.kernel.SemiGroup)
+    大抵は cats.Monoid などというエイリアスになるので直接kernel にいくことがない
+
+    cats.kernel の住人は、Show, Eq, Monoid
+
+・instances
+  Show, Eq などと同様に、companion で instance を作れる
+
+
+・interface
+
+
+
+
+
