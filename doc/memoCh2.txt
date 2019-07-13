@@ -77,11 +77,28 @@ Monoid
 
 
 ・interface
+  => 結局なんだ？
 
 
 2.5.4 context bound を使った... 慣れてきて複雑になるとありがたみを感じるのかな？
 
 
+2.6 Monoid の応用
+
+Spark Hadoop: 分散ようのツール
+
+fault tolerance フォールトトレランス 障害が起きても動く
+
+分散処理をした結果をまとめ上げるに使う
+
+webサイトに訪れた人の総数を知りたい => Monoid[Int]
+webサイトに訪れた人のユニーク数を知りたい => Monoid[Set[T]]
+レスポンスタイムの99% - 95%  を知りたい => Monoid[QTree] // Algebird の住人
+=> case study をmap-reduce でやるようだ
+
+2.6.2
+
+eventual consistency 結果整合性
 
 
-
+commutative replicated data types (CRDTs)
