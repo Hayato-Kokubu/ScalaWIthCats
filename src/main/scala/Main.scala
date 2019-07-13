@@ -1,11 +1,11 @@
-import cats.instances.string._
-import cats.syntax.semigroup._
+import exercise.ch2.superAdder.SuperAdder
 
 object Main extends App{
-  //Monoid[String].combine("hoge", "fuga")
-  val m1 =  "hoge" |+| "fuga"
 
-  println(m1)
+
+  val result = new SuperAdder().add(List(1,2,3))
+
+  println(result)
 
 
 }
