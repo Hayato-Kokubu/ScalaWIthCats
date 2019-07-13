@@ -79,6 +79,9 @@ Monoid
 ・interface
 
 
+2.5.4 context bound を使った... 慣れてきて複雑になるとありがたみを感じるのかな？
+
+
 
 
 
