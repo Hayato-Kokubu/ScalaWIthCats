@@ -17,3 +17,37 @@ Either 正常 or エラー
 List   empty or nonEmpty => flatMap の意味合いもこれでやると解決する？
 
 
+3.2 examples
+
+Future
+
+Futureを扱う時には、その時の状態(処理中? 成功? 失敗? )かを意識しない
+成功 => map は即座に動く
+処理中 => あとで動く
+
+
+Future と 参照透過性
+
+Future には 参照透過性 がない
+副作用がある場合には予測できない結果を返す
+(要確認 Task の話もある)
+
+
+Function
+1変数関数もfunctor となる
+
+X => A から A => B を施して X => B としたい
+
+
+
+
+
+
+
+
+
+
+
+
+
+

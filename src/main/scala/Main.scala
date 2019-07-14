@@ -1,18 +1,25 @@
-import exercise.ch2.superAdder.{Order, SuperAdder}
-import exercise.ch2.superAdder.OrderImplicits._
-import cats.instances.int._
-import cats.instances.option._
-
-import cats.syntax.option._
+import cats.instances.function._
+import cats.syntax.functor._
 
 object Main extends App{
 
+  val func1: Int => Double =
+    (x: Int) => x.toDouble
 
-  val resultInt = new SuperAdder().add(List(1,2,3))
-  val resultOptionInt = new SuperAdder().add(List(1.some,2.some,3.some, none))
-  val resultOrder = new SuperAdder().add(List(Order(1.5d, 2.0d), Order(0.1d, 10.3d),Order(0d, 0d)))
+  val func2: Double => Double =
+    (y: Double) => y * 2
 
-  println(resultInt)
-  println(resultOptionInt)
+  // map が解決されないが、動く
+  val res7 = (func1 map func2)(1)     // composition using map
+  // res7: Double = 2.0
+  println(s"res7 = $res7")
+
+  val res8 = (func1 andThen func2)(1) // composition using andThen
+  // res8: Double = 2.0
+  println(s"res8 = $res8")
+
+  val res9 = func2(func1(1))          // composition written out by hand
+  // res9: Double = 2.0
+  println(s"res9 = $res9")
 
 }
