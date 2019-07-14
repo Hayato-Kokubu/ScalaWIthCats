@@ -38,12 +38,63 @@ Function
 
 X => A から A => B を施して X => B としたい
 
+部分適応(partial unification )で何か3.8 でやるっぽい
+scalacOptions += "-Ypartial-unification" は、すでについていた。
+確かにはずすとcompiler error となった
+
+
+3.3 difinition of functor
+
+F[A] 型で、メソッド
+map[A,B](fa: F[A])(f: A => B): F[B] を持ち、Functor low を満たす
+
+Functor low
+
+・Identity
+fa.map(a => a) == fa  // 恒等写像で写しても変わらず
+
+・Composition
+fa.map(g(f(_))) == fa.map(f).map(g)
+// f: A => B, g: B => C のときに、
+g(f(_))  // まとめて写したもの
+と
+map(f).map(g) // 逐一写したもの
+が等しい
 
 
 
+F[_] is 何 ? => 型コンストラクタ
+
+3.4 Higher Kinds and Type Constructors
+
+Kind : 型の型
+
+Kind(種) とはm
+
+すごい Haskell 本では
+型とは、値について何らかの推論をするために付いている小さなラベルです。
+そして、型にも小さなラベルが付いているんです。その名は種類 (kind)。
+… 種類とはそもそも何者で、何の役に立つのでしょう？
+さっそく GHCi の :k コマンドを使って、型の種類を調べてみましょう。
 
 
+List   : type constructor
+List[A]: type
 
+Function を 値コンストラクタ とみる
+math.abs    : value constructor (= function)
+math.abs(x) : value
+
+type constructor の定義を, underscore で行う
+
+
+cats.Functor では、型コンストラクタを作れる が、
+高階型を作る際には
+・scala.language.higherKinds をimport する
+・build.sbt に　scalacOptions += "-language:higherKinds" を加える
+必要があり、ないとwarning が出る
+
+この本では、import でやっている
 
 
 
