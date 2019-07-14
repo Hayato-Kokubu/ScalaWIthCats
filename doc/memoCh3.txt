@@ -106,6 +106,8 @@ Optionも同様
 mapメソッド自体は、Traverse で実装しているが
 その中で使われているtraverseを与えている
 
+Functor.lift : 関数 f:A => B から
+               関数  F[A] => F[B] を作る
 
 
 
