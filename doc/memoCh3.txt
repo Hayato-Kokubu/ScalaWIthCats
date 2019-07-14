@@ -1,0 +1,19 @@
+Functors
+一連の処理の抽象化
+monad や applicative functor でよく使う
+
+
+3.1
+
+List でのmap は、
+要素を1つ1つ走査する とうよりも
+各々の要素を変換する という見方でみるのが良い
+
+・map では構造を壊さない
+・map はチェーンできる
+
+Option 値がある or ない
+Either 正常 or エラー
+List   empty or nonEmpty => flatMap の意味合いもこれでやると解決する？
+
+
