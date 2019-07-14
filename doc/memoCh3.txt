@@ -110,4 +110,28 @@ Functor.lift : 関数 f:A => B から
                関数  F[A] => F[B] を作る
 
 
+Functor のmap :
+  val fa: F[T1] = ???
+  val f: T1 => T2 = ???
+  Functor[F].map(fa)(f)
+
+Functor のcompanion object がmap を呼び出し
+要素を含んだ文脈のobject を第一引数に、
+文脈の要素を変換する関数f を第二引数におき、
+変換された要素を含んだ文脈のobject を返す
+
+List のmap
+  val list: List[T1] = ???
+  val f: T1 => T2 = ???
+  list.map(f)
+
+要素を含んだ文脈のobject がmap を呼び出し
+文脈の要素を変換する関数f を第一引数におき、
+変換された要素を含んだ文脈のobject を返す
+
+
+
+lift(f) = map(_)(f) 部分適用の一種
+lift(f): F[T1] => F[T2] = {  t1 => map(t1)(f) } の略
+
 
