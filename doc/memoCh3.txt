@@ -134,4 +134,6 @@ List のmap
 lift(f) = map(_)(f) 部分適用の一種
 lift(f): F[T1] => F[T2] = {  t1 => map(t1)(f) } の略
 
+andThen : 関数の結合を行う... Functor.map のメソッドチェーンみたいなやつ
+
 
