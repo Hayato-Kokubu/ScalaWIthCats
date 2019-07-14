@@ -1,18 +1,23 @@
-import cats.instances.function._
+import cats.Functor
+import scala.language.higherKinds
+
 import cats.syntax.functor._
 
 object Main extends App{
 
-  val func1 = (a: Int) => a + 1
-  val func2 = (a: Int) => a * 2
-  val func3 = (a: Int) => a + "!"
+  def doMath[F[_]](start: F[Int])
+                  (implicit functor: Functor[F]): F[Int] =
+    start.map(n => n + 1 * 2)
 
-  val func4 = func1.map(func2).map(func3)
+  import cats.instances.option._ // for Functor
+  import cats.instances.list._   // for Functor
 
-  val func5 = func1.andThen(func2).andThen(func3)
+  val o1 = doMath(Option(20))
+  // res3: Option[Int] = Some(22)
+  println(o1)
 
-  val res1 = func4(10)
-  val res2 = func5(10)
-  println(res1)
-  println(res2)
+
+  val l1 = doMath(List(1, 2, 3))
+  // res4: List[Int] = List(3, 4, 5)
+  println(l1)
 }
