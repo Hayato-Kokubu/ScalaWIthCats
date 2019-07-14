@@ -97,7 +97,14 @@ cats.Functor では、型コンストラクタを作れる が、
 この本では、import でやっている
 
 
+Functor[List[A]].apply で使っているimplicitit値は、
+cats.instances.list._ のcatsStdInstancesForList が持つ
+いろいろmixin しており
+Traverse[List] が、Functorを継承している
 
+Optionも同様
+mapメソッド自体は、Traverse で実装しているが
+その中で使われているtraverseを与えている
 
 
 
