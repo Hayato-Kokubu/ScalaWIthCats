@@ -22,3 +22,11 @@ object TreeImplicits {
     }
   }
 }
+
+object Tree {
+  def branch[A](left: Tree[A], right: Tree[A]): Tree[A] =
+    Branch(left, right)
+
+  def leaf[A](value: A): Tree[A] =
+    Leaf(value)
+}
