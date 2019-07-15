@@ -19,3 +19,30 @@ for式 と flatMap, map を復習したいな・・・
 
 
 list では、 flatMap は順列組み合わせをつくる
+
+
+4.1.1 def of Monad
+
+pure: A => F[A]
+flatMap: (F[A], A => F[B]) => F[B] を持つ
+
+Scalaz, Haskell ではそれぞれ
+pure    - point - return
+flatMap - bind  - >>=    としている
+
+pure: constructer を抽象化している
+      値からmonadで包まれた値をつくる
+
+Monad則
+
+・Left identity  // 左単位元
+∀ a: A, ∀ func: A => F[B] [ pure(a).flatMap(func) == func(a) ]
+
+・Right identity // 右単位元
+∀ m: F[A],  [ m.flatMap(pure) == m ]
+
+・Associativity  // 推移率
+
+
+
+
