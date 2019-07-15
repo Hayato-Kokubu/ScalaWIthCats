@@ -144,5 +144,12 @@ FUnctor[Box] がdけいない。。。
 
 
 
+Functor のcustumがわからん
+
+
+contraValiant と invalient
+ => Ch4 にはやくすすむには　とばしていい
+    Ch6 Semigroupal and Applicative でやる話
+
 
 

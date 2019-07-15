@@ -33,6 +33,8 @@ object Main extends App {
   val fTree = Functor[Tree].map(tree)(i => (i * 10) + "!")
   println(fTree)
 
+
+
 //  tree.map(_ * 2)
 
 }
