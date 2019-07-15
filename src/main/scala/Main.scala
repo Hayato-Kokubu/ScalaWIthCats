@@ -1,23 +1,43 @@
-import cats.Functor
 import scala.language.higherKinds
 
-import cats.syntax.functor._
+import cats.Functor
+
+import cats.instances.int._
+import cats.instances.int._
+import cats.instances.list._
+
+import BoxImplicits._
 
 object Main extends App{
 
-  def doMath[F[_]](start: F[Int])
-                  (implicit functor: Functor[F]): F[Int] =
-    start.map(n => n + 1 * 2)
+  val intFunctor = implicitly[Functor[List]]
 
-  import cats.instances.option._ // for Functor
-  import cats.instances.list._   // for Functor
+  val box = Box[Int](123)
 
-  val o1 = doMath(Option(20))
-  // res3: Option[Int] = Some(22)
-  println(o1)
+  box.map(value => value + 1)
 
-
-  val l1 = doMath(List(1, 2, 3))
-  // res4: List[Int] = List(3, 4, 5)
-  println(l1)
+  val i = implicitly[Functor[Box[Int]]]
 }
+
+final case class Box[X](value: X){
+//  implicit class FunctorOps(src: Box[X]) extends Functor[Box]{
+//    override def map[A, B](fa: Box[A])(f: A => B): Box[B] = Box(f(fa.value))
+//  }
+}
+
+object BoxImplicits {
+  implicit class FunctorOps[A](src: Box[A]) extends Functor[Box]{
+    override def map[A, B](fa: Box[A])(f: A => B): Box[B] = Box(f(fa.value))
+  }
+}
+
+//object BoxImplicits {
+//  implicit def boxFunctor[A]: Functor[Box] = {
+//    new Functor[Box]{
+//      def map[B](fa: Box[A])(f: A => B): Box[B] ={
+//        val Box(a) = fa
+//        Box(f(a))
+//      }
+//    }
+//  }
+//}
