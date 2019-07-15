@@ -139,3 +139,10 @@ andThen : 関数の結合を行う... Functor.map のメソッドチェーンみ
 build.sbt の scalacOptions でscalac のおぷしょんを加えられる
 
 
+
+FUnctor[Box] がdけいない。。。
+
+
+
+
+
