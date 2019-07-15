@@ -1,0 +1,21 @@
+Monad
+
+コンストラクタ と flatmap を持つもの
+
+
+functor は monad である
+例: Option, list , future
+
+for comprehensions が使える
+
+Scala標準では、flatMap を含むクラスがない
+
+monad は、一連の処理の計算のための機能である
+
+一連の処理のそれぞれで、続けるかどうかを選べる
+
+
+for式 と flatMap, map を復習したいな・・・
+
+
+list では、 flatMap は順列組み合わせをつくる
