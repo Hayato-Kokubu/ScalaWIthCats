@@ -36,13 +36,18 @@ pure: constructer を抽象化している
 Monad則
 
 ・Left identity  // 左単位元
-∀ a: A, ∀ func: A => F[B] [ pure(a).flatMap(func) == func(a) ]
+∀ a: A, ∀ func: A => F[B] [ pure(a).flatMap(func) == func(a) ( ∈ F[B])]
+// flatMap(pure(a), func) == func(a)
+
 
 ・Right identity // 右単位元
-∀ m: F[A],  [ m.flatMap(pure) == m ]
+∀ m: F[A],  [ m.flatMap(pure) == m ( ∈ F[B])]
+// flatMap(fa, pure) == fa
 
 ・Associativity  // 推移率
-
+∀ m: F[A], ∀ f: A => F[B] , ∀ g: B => F[C]
+  [ m.flatMap(f).flatMap(g) == m.flatMap(x => f(x).flatMap(g)) ( ∈ F[C])]
+// flatMap( flatMap(fa, f), g) == flatmap(fa, {x => flatMap(f(x), g)})
 
 
 
