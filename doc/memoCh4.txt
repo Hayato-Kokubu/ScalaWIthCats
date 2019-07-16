@@ -50,4 +50,9 @@ Monad則
 // flatMap( flatMap(fa, f), g) == flatmap(fa, {x => flatMap(f(x), g)})
 
 
+Monad ---------> FlatMap (flatMap を持つ)
+        |
+        └------> Applicative (pure を持つ) ------> Functor(map を持つ)
+
+
 
