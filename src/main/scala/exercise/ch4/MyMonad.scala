@@ -8,6 +8,7 @@ trait MyMonad[F[_]] {
   def flatMap[A, B](value: F[A])(func: A => F[B]): F[B]
 
   def map[A, B](value: F[A])(func: A => B): F[B] = {
-    pure[B](func(value))
+//    pure[B](func(value))
+    flatMap(value)(a => pure(func(a)))
   }
 }
