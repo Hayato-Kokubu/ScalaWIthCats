@@ -1,41 +1,19 @@
+import cats.Monad
+import cats.syntax.flatMap._
+import cats.syntax.functor._
+import scala.language.higherKinds
+
 object Main extends App {
 
-  def parseInt(str: String): Option[Int] =
-    scala.util.Try(str.toInt).toOption
-
-  def divide(a: Int, b: Int): Option[Int] =
-    if(b == 0) None else Some(a / b)
-
-//  def stringDivideBy(aStr: String, bStr: String): Option[Int] =
-//    parseInt(aStr).flatMap { aNum =>
-//      parseInt(bStr).flatMap { bNum =>
-//        divide(aNum, bNum)
-//      }
-//    }
-
-    def stringDivideBy(aStr: String, bStr: String): Option[Int] =
-      for {
-        aNum <- parseInt(aStr)
-        bNum <- parseInt(bStr)
-        ans  <- divide(aNum, bNum)
-      } yield ans
-
-
-  val res1 = stringDivideBy("6", "2")
-  // res1: Option[Int] = Some(3)
-
-  val res2 = stringDivideBy("6", "0")
-  // res2: Option[Int] = None
-
-  val res3 = stringDivideBy("6", "foo")
-  // res3: Option[Int] = None
-
-  val res4 = stringDivideBy("bar", "2")
-  // res4: Option[Int] = None
-
-  println(res1)
-  println(res2)
-  println(res3)
-  println(res4)
+  def sumSquare[F[_]: Monad](a: F[Int], b: F[Int]): F[Int] =
+    a.flatMap(x => b.map(y => x*x + y*y))
+  import cats.instances.option._ // for Monad
+  import cats.instances.list._ // for Monad
+  val res8 = sumSquare(Option(3), Option(4))
+  // res8: Option[Int] = Some(25)
+  println(res8)
+  val res9 = sumSquare(List(1, 2, 3), List(4, 5))
+  // res9: List[Int] = List(17, 26, 20, 29, 25, 34)
+  println(res9)
 
 }
