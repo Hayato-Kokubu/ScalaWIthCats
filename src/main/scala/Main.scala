@@ -6,7 +6,13 @@ import scala.language.higherKinds
 object Main extends App {
 
   def sumSquare[F[_]: Monad](a: F[Int], b: F[Int]): F[Int] =
-    a.flatMap(x => b.map(y => x*x + y*y))
+//    a.flatMap(x => b.map(y => x*x + y*y))
+  for {
+    x <- a
+    y <- b
+  } yield x * x + y * y
+
+
   import cats.instances.option._ // for Monad
   import cats.instances.list._ // for Monad
   val res8 = sumSquare(Option(3), Option(4))
