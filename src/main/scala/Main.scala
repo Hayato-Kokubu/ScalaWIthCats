@@ -1,25 +1,47 @@
-import cats.Monad
-import cats.syntax.flatMap._
-import cats.syntax.functor._
 import scala.language.higherKinds
+import cats.Monad
+import cats.syntax.functor._
+import cats.syntax.flatMap._
+import cats.syntax.applicative._
+import cats.instances.option._
+import cats.instances.list._
+import cats.instances.future._
+import scala.concurrent.ExecutionContext.Implicits.global
+
+import scala.concurrent.Future
+
 
 object Main extends App {
-
   def sumSquare[F[_]: Monad](a: F[Int], b: F[Int]): F[Int] =
-//    a.flatMap(x => b.map(y => x*x + y*y))
-  for {
-    x <- a
-    y <- b
-  } yield x * x + y * y
+    for {
+      x <- a
+      y <- b
+    } yield x*x + y*y
+
+//  val optx = 2.pure[Option]
+//  val opty = 3.pure[Option]
+//
+//  val optRes = sumSquare[Option](optx, opty)
+//  println(optRes)
+
+//  val listx = 2.pure[List]
+//  val listy = 3.pure[List]
+//
+//  val listRes = sumSquare(listx, listy)
+//  println(listRes)
 
 
-  import cats.instances.option._ // for Monad
-  import cats.instances.list._ // for Monad
-  val res8 = sumSquare(Option(3), Option(4))
-  // res8: Option[Int] = Some(25)
-  println(res8)
-  val res9 = sumSquare(List(1, 2, 3), List(4, 5))
-  // res9: List[Int] = List(17, 26, 20, 29, 25, 34)
-  println(res9)
+//  val futx = 2.pure[Future]
+//  val futy = 3.pure[Future]
+//
+//  val futRes = sumSquare(futx, futy)
+//  println(futRes)
+//  Thread.sleep(100L)
+//  println(futRes)
+
+
+    // no type parameter と怒られる。。。
+//    val idRes = sumSquare(2, 3)
+//    println(idRes)
 
 }

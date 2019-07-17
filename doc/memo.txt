@@ -111,3 +111,10 @@ Java の関数型Interface とは異なり、複数のmethod でも
 
 1.3 Printable の応用
 furry: もふもふな
+
+
+
+4.3 ID monad
+
+monad を要求しているところに 非monadは入れられない。。。 当然ではある
+
