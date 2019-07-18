@@ -1,13 +1,20 @@
-import cats.Id
-import exercise.ch4.MyId
-
 object Main extends App {
+  val either1: Either[String, Int] = Right(10)
+  val either2: Either[String, Int] = Right(32)
 
-  val a = MyId.pure(1)
+  val res0 =
+    for {
+      a <- either1.right
+      b <- either2.right
+    } yield a + b
+  println(res0)
 
-  println(a)
+  val res1 =
+    for {
+      a <- either1
+      b <- either2
+    } yield a + b
+  println(res1)
 
-  val s = MyId.map(a)(_ * 10.0d)
-
-  println(s)
+  // res1: scala.util.Either[String,Int] = Right(42)
 }

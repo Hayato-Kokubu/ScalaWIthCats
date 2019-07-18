@@ -123,3 +123,13 @@ Idモナドが橋渡しとなる
 いいことあるのか？
 =>  モナドではないものにflatmapやmap ができる
 Ch8 でケーススタディをやる
+
+
+ 4.4 Either monad
+
+
+ Scala2.12 で right biased でモナド化
+
+ cats.syntax.either を Either のmonad化で使う必要はなくなった！
+
+ // Either の復習あった方がいいか？
