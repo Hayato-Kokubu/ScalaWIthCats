@@ -133,3 +133,9 @@ Ch8 でケーススタディをやる
  cats.syntax.either を Either のmonad化で使う必要はなくなった！
 
  // Either の復習あった方がいいか？
+
+cats.syntax.either の役割その2 としては
+asRight, asLeft メソッドが使える。
+Right.apply や Left.apply とは異なり、
+・Either として動ける
+・値を渡さない方の型も指定できる
