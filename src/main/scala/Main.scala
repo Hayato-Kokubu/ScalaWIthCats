@@ -14,5 +14,10 @@ object Main extends App {
   val res3 = Either.catchNonFatal(sys.error("Badness"))
   println(res3)
 
+  val res4 = Either.fromTry(scala.util.Try("foo".toInt))
+  println(res4)
+
+  val res5 = Either.fromOption[String, Int](None, "Badness")
+  println(res5)
 
 }

@@ -71,3 +71,7 @@ catshNonFatal
   ControlThrowable
   以外をcatch する。
   いずれのエラーもヤバみ。。。
+
+
+fromTry => failure ならLeft
+fromOption => none なら Left 何を入れるかは第2引数で決める
