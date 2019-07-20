@@ -111,3 +111,31 @@ Java の関数型Interface とは異なり、複数のmethod でも
 
 1.3 Printable の応用
 furry: もふもふな
+
+
+
+4.3 ID monad
+
+monad を要求しているところに 非monadは入れられない。。。 当然ではある
+
+Idモナドが橋渡しとなる
+
+いいことあるのか？
+=>  モナドではないものにflatmapやmap ができる
+Ch8 でケーススタディをやる
+
+
+ 4.4 Either monad
+
+
+ Scala2.12 で right biased でモナド化
+
+ cats.syntax.either を Either のmonad化で使う必要はなくなった！
+
+ // Either の復習あった方がいいか？
+
+cats.syntax.either の役割その2 としては
+asRight, asLeft メソッドが使える。
+Right.apply や Left.apply とは異なり、
+・Either として動ける
+・値を渡さない方の型も指定できる

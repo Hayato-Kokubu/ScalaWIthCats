@@ -1,40 +1,48 @@
-import cats.Monad
-import cats.instances.option._
+import cats.syntax.either._ // for asRight, asLeft
 
-import scala.concurrent.Future // for Monad
+object Main extends App {
 
-object Main extends App{
-  val opt = Monad[Option].flatMap(Option(1))(a => Option(a*2))
-  // opt: Option[Int] = Some(2)
-  println(opt)
+  val a = 3.asRight[String]
+  // a: Either[String,Int] = Right(3)
 
+  val b = 4.asRight[String]
+  // b: Either[String,Int] = Right(4)
 
-
-  import cats.instances.list._ // for Monad
-
-  val list = Monad[List].flatMap(List(1, 2, 3))(a => List(a, a*10))
-  // list: List[Int] = List(1, 10, 2, 20, 3, 30)
-  println(list)
-
-  import cats.instances.vector._ // for Monad
+   val res4 =
+     for {
+       x <- a
+       y <- b
+     } yield x*x + y*y
+  // res4: scala.util.Either[String,Int] = Right(25)
+  println(res4)
 
 
-  val vec = Monad[Vector].flatMap(Vector(1, 2, 3))(a => Vector(a, a*10))
-  // vec: Vector[Int] = Vector(1, 10, 2, 20, 3, 30)
-  println(vec)
+//  def countPositive(nums: List[Int]) =
+//    nums.foldLeft(Right(0)) { (accumulator, num) =>
+//      if(num > 0) {
+//        // foldLeft の 初期値がRight であるのに対し、 mapでは Either が返るため エラー
+//        // また、Right.apply では 左側の型指定ができない
+//        accumulator.map(_ + 1)
+//      } else {
+//        Left("Negative. Stopping!")
+//      }
+//    }
 
+  def countPositive(nums: List[Int]) =
+    nums.foldLeft(0.asRight[String]) { (accumulator, num) =>
+      if(num > 0) {
+        accumulator.map(_ + 1)
+      } else {
+        Left("Negative. Stopping!")
+      }
+    }
 
-  import cats.instances.future._  // <- catsStdInstancesForFuture
-  import scala.concurrent.ExecutionContext.Implicits.global // <- EcecutuionContext
-  import scala.concurrent._
-  import scala.concurrent.duration._
+  val res5 = countPositive(List(1, 2, 3, 4))
+  println(res5)
 
+  val res6 = countPositive(List(1, -2, 3, 4))
+  println(res6)
 
-  val fm = Monad[Future]
-
-  val future = fm.flatMap(fm.pure(1))(x => fm.pure(x + 2))
-
-  val res = Await.result(future, 1.second)
-  println(res)
+  val res7 = "string".asLeft[Int]
 
 }
