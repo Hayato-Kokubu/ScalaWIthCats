@@ -80,3 +80,16 @@ fromOption => none なら Left 何を入れるかは第2引数で決める
 Either のmap     : Rightだけへんこう
          leftMap : Leftだけへんこう
          bimap   : りょうほう
+
+
+Either[Errors, T] では
+Either[Throwable, T]よりも
+我々がエラーハンドリングしたいエラーに特化したエラーハンドリングができるが、
+・最初に見つけたえらーしかかえしてくれない
+  (全てまわして、全てのえらーをかえしてほしい)
+ことが問題。。。
+
+
+
+
+
