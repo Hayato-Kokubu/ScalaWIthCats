@@ -55,4 +55,19 @@ Monad ---------> FlatMap (flatMap を持つ)
         └------> Applicative (pure を持つ) ------> Functor(map を持つ)
 
 
+・Either
+catchOnly
 
+  // 特定の例外がわかるときに、
+  // 成功 => Right , 特定の例外 => Left とできる
+  // それ以外の例外はthrow される。。。
+
+
+catshNonFatal
+  VirtualMachineError
+  ThreadDeath
+  InterruptedException
+  LinkageError
+  ControlThrowable
+  以外をcatch する。
+  いずれのエラーもヤバみ。。。

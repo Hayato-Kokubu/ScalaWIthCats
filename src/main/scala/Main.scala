@@ -8,6 +8,11 @@ object Main extends App {
   println(res0)
   val res1 = Either.catchOnly[NumberFormatException]("123".toInt)
   println(res1)
-  val res2 = Either.catchOnly[NumberFormatException](12/0)
-  println(res2)
+//  val res2 = Either.catchOnly[NumberFormatException](12/0)
+//  println(res2)
+
+  val res3 = Either.catchNonFatal(sys.error("Badness"))
+  println(res3)
+
+
 }
