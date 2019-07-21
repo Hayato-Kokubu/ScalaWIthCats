@@ -150,3 +150,16 @@ def の場合
 lazy val の場合
 => Now, Later が lazy, memorized
    Always     が lazy, not memorized となる
+
+
+4.6.3 Eval as a Monad
+
+map, flatMap は 関数のchain
+
+map, flatMap での処理は遅延実行となる
+
+
+
+
+
+
