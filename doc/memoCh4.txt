@@ -111,6 +111,14 @@ Computing X が1度しか呼ばれないこと、ランダム値が等しい
 => 結果がcacheされる
 
 
+def: lazy, not memorized
+println(x)がない場合、
+何も表示されない
+=> 遅延実行である
+
+println(x)がある場合
+Computing X が毎回呼ばれること、ランダム値が異なる
+=> 結果がcacheされない
 
 
 

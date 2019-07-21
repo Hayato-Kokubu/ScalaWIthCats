@@ -1,6 +1,6 @@
 object Main extends App {
 
-  val x = {
+  def x = {
     println("Computing X")
     math.random
   }
