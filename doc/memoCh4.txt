@@ -89,6 +89,8 @@ Either[Throwable, T]よりも
   (全てまわして、全てのえらーをかえしてほしい)
 ことが問題。。。
 
+4.5 Error Handling and MonadError とばす
+    EitherT で戻るかも。。。
 
 
 
