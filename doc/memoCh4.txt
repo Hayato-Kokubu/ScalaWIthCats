@@ -142,3 +142,11 @@ Later ・・・ lazy val
 Always ・・・ def
 に近い評価となる
 (def, lazy val として評価したらどうなる？)
+
+
+def の場合
+=> 全てがdef と同様になる
+
+lazy val の場合
+=> Now, Later が lazy, memorized
+   Always     が lazy, not memorized となる
