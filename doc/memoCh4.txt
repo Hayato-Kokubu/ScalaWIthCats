@@ -130,3 +130,15 @@ Computing X が1度のみ呼ばれること、ランダム値が等しい
 => 結果がcacheされる
 
 
+
+4.2 Eval Monad の評価
+
+Eval は、3つのsubtype: Now, Later, Always があり
+それぞれCompanion で定義される。
+
+同じval で宣言しても
+Now ・・・ val
+Later ・・・ lazy val
+Always ・・・ def
+に近い評価となる
+(def, lazy val として評価したらどうなる？)
