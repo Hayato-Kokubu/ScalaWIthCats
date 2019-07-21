@@ -2,11 +2,11 @@ import cats.Eval
 
 object Main extends App {
 
-  val now = Eval.now({println("now!"); math.random + 1000})
+  def now = Eval.now({println("now!"); math.random + 1000})
 
-  val later = Eval.later({println("later!"); math.random + 2000})
+  def later = Eval.later({println("later!"); math.random + 2000})
 
-  val always = Eval.always({println("always!"); math.random + 3000})
+  def always = Eval.always({println("always!"); math.random + 3000})
 
 
   println("-------------")
