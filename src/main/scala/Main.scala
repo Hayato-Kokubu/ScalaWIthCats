@@ -1,6 +1,6 @@
 object Main extends App {
 
-  def x = {
+  lazy val x = {
     println("Computing X")
     math.random
   }
