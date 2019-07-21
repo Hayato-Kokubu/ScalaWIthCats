@@ -158,8 +158,8 @@ map, flatMap は 関数のchain
 
 map, flatMap での処理は遅延実行となる
 
-
-
-
+for式でも同様
+最初のEval.now は chain の先頭のため、now の特性で即時実行される。
+それ以降は、遅延実行され、逐一行われる。
 
 
