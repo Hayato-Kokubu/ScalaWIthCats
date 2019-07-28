@@ -1,16 +1,13 @@
 import cats.Eval
 
 object Main extends App {
-
-
-  def factorial(n: BigInt): Eval[BigInt] =
-    if(n == 1) {
-      Eval.now(n)
-    } else{
-      Eval.defer {factorial(n - 1).map(_ * n) }
+  def foldRight[A, B](as: List[A], acc: B)(fn: (A, B) => B): Eval[B] =
+    as match {
+      case head :: tail =>
+        fn(head, foldRight(tail, acc)(Eval.defer()))
+//        fn(head, foldRight(tail, acc)(fn))
+      case Nil =>
+        Eval.now(acc)
+//        acc
     }
-
-  val res = factorial(1000000).value
-
-  println(res)
 }
