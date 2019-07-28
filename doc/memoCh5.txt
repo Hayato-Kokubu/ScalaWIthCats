@@ -1,0 +1,11 @@
+・一般的にはMonadどうしの合成はできない
+　flatMap が辛い
+
+　Option は任意のMonad を合成できる
+
+  type Composed[A] = M1[Option[A]]
+  Composed = Option[M1[A]]
+  flatMap[A, B](fa: Composed[A])(f: A => Composed[B]):Composed[B] = {
+
+
+
