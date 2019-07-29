@@ -1,24 +1,30 @@
-import cats.Monad
+import cats.data.OptionT
+import cats.instances.list._     // for Monad
 import cats.syntax.applicative._ // for pure
-import cats.syntax.flatMap._     // for flatMap
-import scala.language.higherKinds
 
 
-// Hypothetical example. This won't actually compile:
+
 object Main extends App {
 
-  def compose[M1[_]: Monad, M2[_]: Monad] = {
-    type Composed[A] = M1[M2[A]]
+  type ListOption[A] = OptionT[List, A]
 
-    new Monad[Composed] {
-      def pure[A](a: A): Composed[A] =
-        a.pure[M2].pure[M1]
+  val result1: ListOption[Int] = OptionT(List(Option(10)))
+  val result2: ListOption[Int] = 32.pure[ListOption]
 
-      def flatMap[A, B](fa: Composed[A])
-                       (f: A => Composed[B]): Composed[B] =
-      // Problem! How do we write flatMap?
-        ???
+  // F[Option[A] がvalue
+
+
+  println(result1)
+  println(result2)
+
+
+  val res0 = result1.flatMap { (x: Int) =>
+    result2.map { (y: Int) =>
+      x + y
     }
   }
 
+  println(res0)
+
 }
+
