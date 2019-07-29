@@ -1,48 +1,26 @@
-import cats.syntax.either._ // for asRight, asLeft
+import cats.Monad
+import cats.syntax.applicative._ // for pure
+import cats.syntax.flatMap._     // for flatMap
+import scala.language.higherKinds
+import cats.instances.option._
+import cats.syntax.option._
+
 
 object Main extends App {
 
-  val a = 3.asRight[String]
-  // a: Either[String,Int] = Right(3)
+  // Hypothetical example. This won't actually compile:
+  def compose[M2[_]: Monad] = {
+//    type Composed[A] = Option[M2[A]]
 
-  val b = 4.asRight[String]
-  // b: Either[String,Int] = Right(4)
+    new Monad[Option[M2]] {
+      def pure[A](a: A): Option[M2[A]] =
+        a.pure[M2].pure[Option]
 
-   val res4 =
-     for {
-       x <- a
-       y <- b
-     } yield x*x + y*y
-  // res4: scala.util.Either[String,Int] = Right(25)
-  println(res4)
-
-
-//  def countPositive(nums: List[Int]) =
-//    nums.foldLeft(Right(0)) { (accumulator, num) =>
-//      if(num > 0) {
-//        // foldLeft の 初期値がRight であるのに対し、 mapでは Either が返るため エラー
-//        // また、Right.apply では 左側の型指定ができない
-//        accumulator.map(_ + 1)
-//      } else {
-//        Left("Negative. Stopping!")
-//      }
-//    }
-
-  def countPositive(nums: List[Int]) =
-    nums.foldLeft(0.asRight[String]) { (accumulator, num) =>
-      if(num > 0) {
-        accumulator.map(_ + 1)
-      } else {
-        Left("Negative. Stopping!")
-      }
+      def flatMap[A, B](fa: Option[M2[A]])
+        (f: A => Option[M2[B]]): Option[M2[B]] =
+        fa.flatMap(_.fold(None.pure[M2])(f))
     }
-
-  val res5 = countPositive(List(1, 2, 3, 4))
-  println(res5)
-
-  val res6 = countPositive(List(1, -2, 3, 4))
-  println(res6)
-
-  val res7 = "string".asLeft[Int]
+  }
 
 }
+
