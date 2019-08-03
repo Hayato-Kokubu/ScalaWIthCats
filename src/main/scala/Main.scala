@@ -18,13 +18,13 @@ object Main extends App {
 
 
    // compile error
-  val resX =
-    for {
-      opt1 <- futureOption1
-      n1 <- opt1
-      opt2 <- futureOption2
-      n2 <- opt2
-    } yield n1 + n2
+//  val resX =
+//    for {
+//      opt1 <- futureOption1
+//      n1 <- opt1
+//      opt2 <- futureOption2
+//      n2 <- opt2
+//    } yield n1 + n2
 
   // 二重for式つらみ
   val res = for{
@@ -37,6 +37,24 @@ object Main extends App {
   } yield res
 
   println(res)
+
+
+
+  val mEither = implicitly[Monad[MyEither]]
+  val futureEither1 = mFut.pure(mEither.pure(2))
+  val futureEither2 = mFut.pure(mEither.pure(3))
+
+  val resFutureEither = for{
+    e1 <- futureEither1
+    e2 <- futureEither2
+    res = for{
+      n1 <- e1
+      n2 <- e2
+    } yield n1 + n2
+  } yield res
+
+
+  println(resFutureEither)
 }
 
 
