@@ -1,30 +1,60 @@
-import cats.data.OptionT
-import cats.instances.list._     // for Monad
-import cats.syntax.applicative._ // for pure
-
+import cats.data.EitherT
+import cats.instances.future._
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 
 object Main extends App {
 
-  type ListOption[A] = OptionT[List, A]
+  type Response[A] = EitherT[Future,String,A]
 
-  val result1: ListOption[Int] = OptionT(List(Option(10)))
-  val result2: ListOption[Int] = 32.pure[ListOption]
-
-  // F[Option[A] がvalue
-
-
-  println(result1)
-  println(result2)
-
-
-  val res0 = result1.flatMap { (x: Int) =>
-    result2.map { (y: Int) =>
-      x + y
+  def getPowerLevel(ally: String): Response[Int] = {
+    powerLevels.get(ally) match {
+      case Some(avg) => EitherT.right(Future(avg))
+      case None      => EitherT.left(Future(s"$ally unreachable"))
     }
   }
 
-  println(res0)
+  def canSpecialMove(ally1: String, ally2: String): Response[Boolean] = {
+    for{
+      avg1 <- getPowerLevel(ally1)
+      avg2 <- getPowerLevel(ally2)
+    } yield avg1 + avg2 > 15
+  }
 
+  val powerLevels = Map(
+    "Jazz"      -> 6,
+    "Bumblebee" -> 8,
+    "Hot Rod"   -> 10
+  )
+
+  val success1 = getPowerLevel("Jazz")
+  Thread.sleep(100)
+  println(success1)
+
+  val success2 = getPowerLevel("Bumblebee")
+  Thread.sleep(100)
+  println(success2)
+
+  val success3 = getPowerLevel("Hot Rod")
+  Thread.sleep(100)
+  println(success3)
+
+  val failure1 = getPowerLevel("xxx")
+  Thread.sleep(100)
+  println(failure1)
+
+
+  val temp1 = canSpecialMove("Jazz", "Bumblebee")
+  Thread.sleep(100)
+  println(temp1)
+
+  val temp2 = canSpecialMove("Jazz", "Hot Rod")
+  Thread.sleep(100)
+  println(temp2)
+
+
+  val temp3 = canSpecialMove("Jazz", "xxx")
+  Thread.sleep(100)
+  println(temp3)
 }
-
