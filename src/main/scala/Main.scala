@@ -1,48 +1,46 @@
-import cats.syntax.either._ // for asRight, asLeft
+import scala.language.higherKinds
+
+import cats.Monad
+
 
 object Main extends App {
 
-  val a = 3.asRight[String]
-  // a: Either[String,Int] = Right(3)
+  val leaf = Tree.leaf(1)
+  println(leaf)
 
-  val b = 4.asRight[String]
-  // b: Either[String,Int] = Right(4)
+  val branch1 = Tree.branch(Tree.leaf(2), Tree.leaf(3))
+  println(branch1)
 
-   val res4 =
-     for {
-       x <- a
-       y <- b
-     } yield x*x + y*y
-  // res4: scala.util.Either[String,Int] = Right(25)
-  println(res4)
+  val branch2 = Tree.branch(Tree.leaf(4), Tree.leaf(5))
+  println(branch2)
+
+  val branch3 = Tree.branch(branch1, branch2)
+  println(branch3)
+
+}
 
 
-//  def countPositive(nums: List[Int]) =
-//    nums.foldLeft(Right(0)) { (accumulator, num) =>
-//      if(num > 0) {
-//        // foldLeft の 初期値がRight であるのに対し、 mapでは Either が返るため エラー
-//        // また、Right.apply では 左側の型指定ができない
-//        accumulator.map(_ + 1)
-//      } else {
-//        Left("Negative. Stopping!")
-//      }
-//    }
 
-  def countPositive(nums: List[Int]) =
-    nums.foldLeft(0.asRight[String]) { (accumulator, num) =>
-      if(num > 0) {
-        accumulator.map(_ + 1)
-      } else {
-        Left("Negative. Stopping!")
+sealed trait Tree[+A]
+// branch doesn't have value
+final case class Branch[A](left: Tree[A], right: Tree[A]) extends Tree[A]
+final case class Leaf[A](value: A) extends Tree[A]
+
+object Tree{
+  def branch[A](left: Tree[A], right: Tree[A]): Tree[A] = Branch(left, right)
+  def leaf[A](value: A): Tree[A] = Leaf(value)
+}
+
+object Implicits {
+  implicit def treeMonad = {
+    new Monad[Tree]{
+      def pure[A](a: A): Tree[A] = Tree.leaf(a)
+      def flatMap[A,B](tree: Tree[A])(f: A => Tree[B]): Tree[B] = {
+        tree match {
+          case Leaf(a) => f(a)
+          case Branch(left, right) => Branch( this.flatMap(left)(f), this.flatMap(right)(f))
+        }
       }
     }
-
-  val res5 = countPositive(List(1, 2, 3, 4))
-  println(res5)
-
-  val res6 = countPositive(List(1, -2, 3, 4))
-  println(res6)
-
-  val res7 = "string".asLeft[Int]
-
+  }
 }
