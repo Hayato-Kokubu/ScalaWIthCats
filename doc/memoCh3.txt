@@ -152,4 +152,11 @@ contraValiant と invalient
     Ch6 Semigroupal and Applicative でやる話
 
 
+Ch.3.6
+
+Contravariant <--> contramap
+contramap[A,B](fb: F[B])(f: A => B): F[A]
+
+
+InVariant     <--> imap
 
