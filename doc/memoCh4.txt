@@ -55,4 +55,27 @@ Monad ---------> FlatMap (flatMap を持つ)
         └------> Applicative (pure を持つ) ------> Functor(map を持つ)
 
 
+4.7 writer monad
+log 出力のため
+
+一連の処理を記録
+log がミックスすることなくできる？
+    処理 と ログは関連している
+
+Writer :  cats.data の住人 他には、〇〇T とかのmonad transformer など
+                          Validated
+
+Writer[W, A] W:type of log
+             A:type of result
+
+
+実行すると、WriterT???
+コードの再利用のため
+WriterT[W,A]の実態は、WriterT[Id, W, A] となる (Id[Writer[W,A]] をパックしたもの)
+
+Id モナドの復習
+モナドに包まれているものを引数とする関数に
+包まれていないものを渡す時に使える
+
+
 
