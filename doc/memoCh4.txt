@@ -78,4 +78,7 @@ Id モナドの復習
 包まれていないものを渡す時に使える
 
 
+bimap と mapBoth の違いは
+log でres を使うことが (bimap: できない, mapBoth: できる)
+res でlog を使うことが (bimap: できない, mapBoth: できる)
 
