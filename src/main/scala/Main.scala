@@ -1,55 +1,32 @@
-import Implicits._
-
 object Main extends App {
 
-  val ps = implicitly[Printable[String]]
-  val pb = implicitly[Printable[Boolean]]
-
-  println( ps.format("hello") )
-  println( pb.format(true) )
-
 }
 
 
-// self => という書き方は何？
-// 自分型アノテーション というmixin の1つ
-// https://docs.scala-lang.org/ja/tour/self-types.html
-trait Printable[A] { self =>
-  def format(value: A): String
-  def contramap[B](func: B => A): Printable[B] =
-    new Printable[B] {
-      def format(value: B): String ={
-        self.format(func(value))
-      }
-    }
-}
+trait Codec[A] { self =>
+  def encode(value: A): String
+  def decode(value: String): A
 
-object Printable{
-  def format[A](value: A)(implicit p: Printable[A]): String =
-    p.format(value)
+  def imap[B](dec: A => B, enc: B => A): Codec[B] = {
+    new Codec[B]{
+      def encode(value: B):String = self.encode(enc(value))
+      def decode(value: String):B = {
 
-}
-
-object Implicits {
-  implicit val stringPrintable: Printable[String] =
-    new Printable[String] {
-      def format(value: String): String =
-        "\"" + value + "\""
-    }
-
-  implicit val booleanPrintable: Printable[Boolean] =
-    new Printable[Boolean] {
-      def format(value: Boolean): String =
-        if(value) "yes" else "no"
-    }
-
-  implicit def boxPrintable[A](implicit pa: Printable[A]): Printable[Box[A]] = {
-    new Printable[Box[A]] {
-      def format(box: Box[A]): String = {
-        pa.format(box.value)
       }
     }
   }
 }
 
-final case class Box[A](value: A)
+
+object Implicits {
+  implicit val stringCodec: Codec[String] =
+    new Codec[String] {
+      def encode(value: String): String = value
+      def decode(value: String): String = value
+    }
+  implicit val intCodec: Codec[Int] = stringCodec.imap(_.toInt, _.toString)
+
+  implicit val booleanCodec: Codec[Boolean] = stringCodec.imap(_.toBoolean, _.toString)
+}
+
+
