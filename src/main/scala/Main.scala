@@ -1,46 +1,60 @@
-import cats.data.Writer
-import cats.syntax.writer._
-import cats.syntax.applicative._
-import cats.instances.vector._
+import cats.data.Reader
 
-import scala.concurrent.{Await, Future}
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration._
+import cats.syntax.applicative._
+
 
 object Main extends App {
-  type Logged[A] = Writer[Vector[String], A]
+  type DbReader[A] = Reader[Db, A]
 
-  def slowly[A](body: => A) =
-    try body finally Thread.sleep(100)
+  val users = Map(
+    1 -> "dade",
+    2 -> "kate",
+    3 -> "margo"
+  )
 
-  def factorial(n: Int): Logged[Int] =
-    for {
-      ans <- if(n == 0) {
-        1.pure[Logged]
-      } else {
-        slowly(factorial(n - 1).map(_ * n))
-      }
-      _   <- Vector(s"fact $n $ans").tell
-    } yield ans
+  val passwords = Map(
+    "dade"  -> "zerocool",
+    "kate"  -> "acidburn",
+    "margo" -> "secret"
+  )
 
+  val db = Db(users, passwords)
 
+  val a = checkLogin(1, "zerocool").run(db)
+  val b = checkLogin(4, "davinci").run(db)
 
-  val Vector((logA, ansA), (logB, ansB)) =
-    Await.result(
-      Future.sequence(
-        Vector(
-          Future(factorial(3).run),
-          Future(factorial(5).run)
-        )
-      ),
-      5.seconds
-    )
+  println(a)
+  println(b)
+  println(checkLogin(1, "zerocool"))
 
-  println(logA)
-  println(logB)
-  println(ansA)
-  println(ansB)
+  def findUsername(userId: Int): DbReader[Option[String]] =
+    Reader[Db, Option[String]](db => db.usernames.get(userId))
 
-}
+  def checkPassword(
+    username: String,
+    password: String
+  ): DbReader[Boolean] = {
+    Reader[Db, Boolean] { db =>
+      db.passwords.get(username).contains(password)
+    }
+  }
 
+  def checkLogin(
+    userId: Int,
+    password: String
+  ): DbReader[Boolean] = {
+      for {
+        username <- findUsername(userId)
+        passwordOk <- username.map { username =>
+          checkPassword(username, password)
+        }.getOrElse {
+          false.pure[DbReader]
+        }
+      } yield passwordOk
+    }
+  }
 
+case class Db(
+  usernames: Map[Int, String],
+  passwords: Map[String, String]
+)

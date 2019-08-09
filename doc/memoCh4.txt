@@ -82,3 +82,8 @@ bimap と mapBoth の違いは
 log でres を使うことが (bimap: できない, mapBoth: できる)
 res でlog を使うことが (bimap: できない, mapBoth: できる)
 
+
+Reader
+
+DI の実装
+cake pattern and DI frameworks
