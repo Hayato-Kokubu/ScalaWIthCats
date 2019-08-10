@@ -110,3 +110,13 @@ runA: resultのみ             をEval でくるんだもの を返す
 value : 結果を取得
 
 State は、Reader, Writer 同様 組み合わせることで強さを発揮する
+
+処理のstep をインスタンスとして表現し、モナド操作をする。
+
+get, set, pure, inspect, modify
+
+
+通訳: interpreter
+設計図をあたえるもの？
+値が入ってきた暁にはこんな処理をするぞ というもの
+
