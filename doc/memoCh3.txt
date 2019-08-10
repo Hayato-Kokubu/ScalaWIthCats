@@ -157,6 +157,10 @@ Ch.3.6
 Contravariant <--> contramap
 contramap[A,B](fb: F[B])(f: A => B): F[A]
 
+Contravariant
+既に出来上がっている変換 A => C に対して
+BからA への変換を作成することによって、B => C を作るためのもの
+
 
 InVariant     <--> imap
 双方向 encoder, decoder
