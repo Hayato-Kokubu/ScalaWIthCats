@@ -165,6 +165,8 @@ BからA への変換を作成することによって、B => C を作るため�
 InVariant     <--> imap
 双方向 encoder, decoder
 
+1つできていれば (String や、 何かで包む前の型A など) imap でインスタンンスを与えられる
+
 
 Monocle
 lense, optics
