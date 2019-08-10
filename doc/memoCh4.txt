@@ -87,3 +87,26 @@ Reader
 
 DI の実装
 cake pattern and DI frameworks
+
+
+State Moand
+
+変わることがある”状態”を pure にする
+
+State[S, A]
+S: type of State
+A: type of Result
+
+input の状態を output の状態にする
+結果を計算する
+>> 何言ってんだ感？？？
+
+run, runS, runA の3メソッドがある
+Eval を返す // stack safe
+run: state, result のtuple をEval でくるんだもの
+runS: stateのみ             をEval でくるんだもの
+runA: resultのみ             をEval でくるんだもの を返す
+
+value : 結果を取得
+
+State は、Reader, Writer 同様 組み合わせることで強さを発揮する

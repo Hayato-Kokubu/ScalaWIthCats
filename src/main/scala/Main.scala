@@ -1,60 +1,26 @@
-import cats.data.Reader
-
-import cats.syntax.applicative._
-
+import cats.data.State
 
 object Main extends App {
-  type DbReader[A] = Reader[Db, A]
-
-  val users = Map(
-    1 -> "dade",
-    2 -> "kate",
-    3 -> "margo"
-  )
-
-  val passwords = Map(
-    "dade"  -> "zerocool",
-    "kate"  -> "acidburn",
-    "margo" -> "secret"
-  )
-
-  val db = Db(users, passwords)
-
-  val a = checkLogin(1, "zerocool").run(db)
-  val b = checkLogin(4, "davinci").run(db)
+  val a = State[Int, String] { state =>
+    (state, s"The state is $state")
+  }
 
   println(a)
-  println(b)
-  println(checkLogin(1, "zerocool"))
 
-  def findUsername(userId: Int): DbReader[Option[String]] =
-    Reader[Db, Option[String]](db => db.usernames.get(userId))
+  // Get the state and the result:
+  val (state1, result1) = a.run(10).value
+  // state: Int = 10
+  // result: String = The state is 10
+  println(s"${(state1, result1)}")
 
-  def checkPassword(
-    username: String,
-    password: String
-  ): DbReader[Boolean] = {
-    Reader[Db, Boolean] { db =>
-      db.passwords.get(username).contains(password)
-    }
-  }
+  // Get the state, ignore the result:
+  val state2 = a.runS(10).value
+  // state: Int = 10
+  println(s"$state2")
 
-  def checkLogin(
-    userId: Int,
-    password: String
-  ): DbReader[Boolean] = {
-      for {
-        username <- findUsername(userId)
-        passwordOk <- username.map { username =>
-          checkPassword(username, password)
-        }.getOrElse {
-          false.pure[DbReader]
-        }
-      } yield passwordOk
-    }
-  }
+  // Get the result, ignore the state:
+  val result2 = a.runA(10).value
+  // result: String = The state is 10
+  println(s"$result2")
 
-case class Db(
-  usernames: Map[Int, String],
-  passwords: Map[String, String]
-)
+}
