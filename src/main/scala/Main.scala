@@ -1,29 +1,17 @@
-import cats.Monoid
-// Symbol 版のMonoid を作る
-// Symbol はCats標準のインスタンスは用意していないので
-// 一度Symbol をStringで変換し、Monoid[String]で結合して Symbol で戻す
-
-import cats.instances.string._
-import cats.syntax.invariant._
-import cats.syntax.monoid._
-
-import Implicits._
+import cats.Semigroupal
+import cats.instances.option._
+import cats.syntax.option._
 
 object Main extends App {
 
+  val a = Semigroupal[Option].product(12.some, "abc".some)
+  println(a)
 
-  println( Monoid[Symbol].empty )
-  println( 'a |+| 'few |+| 'words )
+  val tuple3 = Semigroupal.tuple3(3.some, "hello".some,2L.some)
+  println(tuple3)
 
-}
-
-
-object Implicits {
-  implicit val symbolMonoid: Monoid[Symbol] =
-//    new Monoid[Symbol] {
-//      def empty: Symbol = Symbol("")
-//      def combine(a: Symbol, b: Symbol) = Symbol(a.toString + b.toString)
-//  }
-  Monoid[String].imap(Symbol.apply)(_.name)
+  val map3 = Semigroupal.map3(2.some, 4.some, 6.some)(_ + _ * _)
+  println(map3)
 
 }
+

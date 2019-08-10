@@ -1,0 +1,38 @@
+Semigroupal and Applicative
+
+map と flatMap ではあらわせないデータがある
+
+例:validation
+
+
+Either でやると、最初の1つのエラーを検知したら処理がとまる
+validation 時では全てのエラーを検知して報告してほしい
+
+Future.apply
+独立な処理であってもmapやfoldLeftでつないでしまうと処理を待ってしまう
+
+2パターンの解決法
+
+Semigroupal 複数の引数を使える
+
+Applicative <---- SemiGroupal
+              |
+              └-- Functor
+  pure を持つ
+
+function application // 関数適用 ( おそらく = apply)
+
+
+SemiGroupal: 同じ文脈の2つのinstanceを、同じ文脈のtupleにする
+
+     SemiGroup   : join 2 values
+<--> SemiGroupal: join 2 context
+
+
+tupleN (N = 3 ~ 22)
+どれかが none であると全体がnone となる
+
+他にも、map, contramap, imap がある
+
+
+
