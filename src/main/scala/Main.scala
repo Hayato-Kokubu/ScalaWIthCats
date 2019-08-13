@@ -1,17 +1,26 @@
-import cats.Semigroupal
+import cats.syntax.apply._
 import cats.instances.option._
+
+
 import cats.syntax.option._
 
-object Main extends App {
 
-  val a = Semigroupal[Option].product(12.some, "abc".some)
+object Main extends App {
+  val a = (123.some, "abc".some).tupled // use Semigroupal[Option] from cats.syntax.option._
   println(a)
 
-  val tuple3 = Semigroupal.tuple3(3.some, "hello".some,2L.some)
-  println(tuple3)
+  val garfield =
+    (
+    Option("Garfield"),
+    Option(1978),
+    Option("Orange & black")
+  ).mapN(Cats)
 
-  val map3 = Semigroupal.map3(2.some, 4.some, 6.some)(_ + _ * _)
-  println(map3)
+
+  println(garfield)
+
 
 }
 
+
+case class Cats(name: String, born: Int, color: String)

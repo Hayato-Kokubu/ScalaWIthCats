@@ -34,5 +34,19 @@ tupleN (N = 3 ~ 22)
 
 他にも、map, contramap, imap がある
 
+mapN
+
+Apply syntax
+・tupled
+・mapN
+  中では、Semigroupal を用いている
+  => 自作の型コンストラクタであれば、自分でSemigroupal を作る必要あり
+
+
+type checked なのは、特筆すべきほどのことか？
+普通にやってもなるのでは？
+ => partial application で出てくるコンバイルエラーの話？
+
+
 
 
