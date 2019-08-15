@@ -1,8 +1,13 @@
 import cats.Semigroupal
-import cats.instances.list._
+import cats.instances.either._ // for SemiGroupal[Either]
 
 object Main extends App {
+  type ErrorOr[A] = Either[Vector[String], A]
 
-  val res = Semigroupal[List].product(List(1,2), List(3,4))
-  println(res)
+  val a =
+    Semigroupal[ErrorOr].product(
+      Right("hello!"),
+      Left(Vector("Error 1"))
+    )
+  println(a)
 }
