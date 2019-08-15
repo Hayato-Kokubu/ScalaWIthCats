@@ -1,29 +1,38 @@
-import cats.Monoid
-// Symbol 版のMonoid を作る
-// Symbol はCats標準のインスタンスは用意していないので
-// 一度Symbol をStringで変換し、Monoid[String]で結合して Symbol で戻す
+import cats.Semigroupal
+import cats.instances.future._
+import cats.syntax.apply._ // for mapN
 
-import cats.instances.string._
-import cats.syntax.invariant._
-import cats.syntax.monoid._
-
-import Implicits._
+import scala.concurrent.{Await, Future}
+import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext.Implicits.global
 
 object Main extends App {
 
+  val futurePair = Semigroupal[Future].
+    product(Future("Hello"), Future(123))
 
-  println( Monoid[Symbol].empty )
-  println( 'a |+| 'few |+| 'words )
+  println(futurePair)
+
+  Await.result(futurePair, 1.second)
+  println(futurePair)
+
+
+  val futureCat = (
+    Future{println("futureCat Name"); Thread.sleep(3000) ; "Garfield"},//("Garfield"),
+    Future{println("futureCat birth"); Thread.sleep(2000) ; 1978},//(1978),
+    Future{println("futureCat food "); Thread.sleep(1000) ; List("Lasagne")}//(List("Lasagne"))
+  ).mapN(Cat.apply)
+
+  println(futureCat)
+
+  Await.result(futureCat, 3.second)
+  println(futureCat)
+
 
 }
 
-
-object Implicits {
-  implicit val symbolMonoid: Monoid[Symbol] =
-//    new Monoid[Symbol] {
-//      def empty: Symbol = Symbol("")
-//      def combine(a: Symbol, b: Symbol) = Symbol(a.toString + b.toString)
-//  }
-  Monoid[String].imap(Symbol.apply)(_.name)
-
-}
+case class Cat(
+  name: String,
+  yearOfBirth: Int,
+  favoriteFoods: List[String]
+)
