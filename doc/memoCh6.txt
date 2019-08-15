@@ -1,0 +1,8 @@
+product : monad では、map とflatMap で実装している。
+          list, either では不便だが、高階の場合に都合がいいことがあるという。
+
+Monad ではなく、Semigropual のインスタンスを作るのに向いているため。
+error handling で役にたつ。
+
+
+
