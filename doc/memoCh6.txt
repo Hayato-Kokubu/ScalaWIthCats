@@ -6,3 +6,12 @@ error handling で役にたつ。
 
 
 
+Validated Eitherと比較される
+
+Either    fail-fast    1つ目のエラーを返す
+Validated accumulating 全てのエラーを返す
+
+Validation.valid
+           invalid    : smart constructor
+
+他にも、Either.as(Left/Right), Option.some , none とかがある
