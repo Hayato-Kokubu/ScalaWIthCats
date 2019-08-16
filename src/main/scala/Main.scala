@@ -1,17 +1,14 @@
 import cats.data.Validated
-import cats.syntax.validated._
+
+import cats.syntax.applicative._
+import cats.syntax.applicativeError._
+
+import cats.instances.list._
 
 object Main extends App {
-  val v = Validated.Valid(123)
-  val i = Validated.Invalid(List("Badness"))
+  type ErrorsOr[A] = Validated[List[String], A]
 
-  println(v)
-  println(i)
+  val v = 123.pure[ErrorsOr]
+  val i = List("Badness").raiseError[ErrorsOr, Int]
 
-
-  val v2 = 123.valid[List[String]]
-  val i2 = List("Badness").invalid[Int]
-
-  println(v)
-  println(i)
 }

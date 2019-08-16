@@ -15,3 +15,6 @@ Validation.valid
            invalid    : smart constructor
 
 他にも、Either.as(Left/Right), Option.some , none とかがある
+
+raize, raizeError も使える
+それぞれ syntax.applicative, syntax.appicativeError が必要
