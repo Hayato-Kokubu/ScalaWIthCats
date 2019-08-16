@@ -1,27 +1,28 @@
-import scala.language.higherKinds
-
-import cats.Monad
-
+import cats.Semigroupal
+import cats.data.Validated
+import cats.instances.list._ // ないとエラーは検知してくれないが、Validated の色が変わる
+import cats.instances.either._
 
 object Main extends App {
 
-}
+  type AllErrorsOr[A] = Validated[List[String], A]
 
+  val a =
+    Semigroupal[AllErrorsOr].product(
+      Validated.invalid(List("Error 1")),
+      Validated.invalid(List("Error 2"))
+  )
 
-trait MySemigroupal[F[_]] {
-  def product[A, B](fa: F[A], fb: F[B]): F[(A, B)]
-}
+  println(a)
 
+  type ErrorsOr[A] = Either[List[String], A]
 
-object optionImplicits {
-  implicit def mySemigroup = {
-    new MySemigroupal[Option] {
-      def product[A, B](fa: Option[A], fb: Option[B]): Option[(A,B)] = {
-        for{
-          a <- fa
-          b <- fb
-        } yield (a,b)
-      }
-    }
-  }
+  val b =
+    Semigroupal[ErrorsOr].product(
+      Left(List("Error 1")),
+      Left(List("Error 2"))
+    )
+
+  println(b)
+
 }
