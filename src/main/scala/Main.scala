@@ -1,29 +1,39 @@
-import cats.data.Validated
-import cats.syntax.option._
+import cats.Semigroupal
+import cats.data.{NonEmptyVector, Validated}
+import cats.syntax.apply._
+import cats.syntax.validated._
+import cats.instances.string._
+import cats.instances.vector._
 
 object Main extends App {
-  val a = Validated.catchOnly[NumberFormatException]("foo".toInt)
-  println(a)
 
-  val a1 = Validated.catchOnly[NumberFormatException]("123".toInt)
-  println(a1)
+  type AllErrorsOr[A] = Validated[String, A]
 
+  Semigroupal[AllErrorsOr]
 
-//  val a2 = Validated.catchOnly[NullPointerException]("foo".toInt)
-//  println(a2)
+  val t =
+    (
+      12.valid[String],
+      //"Error 1".invalid[Int],
+      "Error 2".invalid[Int]
+    ).tupled // tupled がIntelliJで認識してもらえないが、動く。。。
 
-  // sys.error creates new RuntimeException
-  val b = Validated.catchNonFatal(sys.error("Badness"))
-  println(b)
+  println(t)
 
-  val c = Validated.fromEither[String, Int](Left("Badness"))
-  println(c)
-  val c1 = Validated.fromEither[String, Int](Right(1234))
-  println(c1)
+  val t2 =
+    (
+      Vector(404).invalid[Int],
+      Vector(500).invalid[Int]
+    ).tupled
 
-  val d = Validated.fromOption[String, Int](None, "Badness")
-  println(d)
-  val d1 = Validated.fromOption[String, Int](12345.some, "Badness")
-  println(d1)
+  println(t2)
+
+  val t3 =
+    (
+      NonEmptyVector.of("Error 1").invalid[Int],
+      NonEmptyVector.of("Error 2").invalid[Int]
+    ).tupled
+
+  println(t3)
 
 }
