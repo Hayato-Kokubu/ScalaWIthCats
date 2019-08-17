@@ -69,3 +69,16 @@ Validation.valid
 
 raize, raizeError も使える
 それぞれ syntax.applicative, syntax.appicativeError が必要
+
+
+catchOnly, catchNonFatal
+Error を Validated.Invalidに
+
+fromTry
+Try を validatedに
+
+fromEither
+Either を Validated に
+
+fromOption
+Opiton をValidated に   none の場合は引数で指定する
