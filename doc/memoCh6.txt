@@ -82,3 +82,15 @@ Either を Validated に
 
 fromOption
 Opiton をValidated に   none の場合は引数で指定する
+
+
+flatMapは使えない Monadではないため。。。
+but ...
+Either  <--> Validated の変換はできる
+toEither
+toValidated
+
+一時的に変換してただちに戻すこともできる
+withEither , withValidated
+  Validated 使用中に一時的にEither のflatMap を使いたい時にできる
+  => そんなことあるか？
