@@ -1,32 +1,14 @@
-import cats.Monoid
+import cats.data.Validated
 
-import cats.instances.string._
-import cats.instances.int._
+import cats.syntax.applicative._
+import cats.syntax.applicativeError._
+
 import cats.instances.list._
 
-import cats.syntax.apply._
-import cats.instances.invariant._
-
-
 object Main extends App {
+  type ErrorsOr[A] = Validated[List[String], A]
 
-  val tupleToCat: (String, Int, List[String]) => Cat = Cat.apply _
-
-  val catToTuple: Cat => (String, Int, List[String]) = { cat =>
-    (cat.name, cat.yearOfBirth, cat.favoriteFoods)
-  }
-
-  implicit val catMonid: Monoid[Cat] = (
-    Monoid[String],
-    Monoid[Int],
-    Monoid[List[String]]
-  ).imapN(tupleToCat)(catToTuple)
+  val v = 123.pure[ErrorsOr]
+  val i = List("Badness").raiseError[ErrorsOr, Int]
 
 }
-
-
-case class Cat(
-                name: String,
-                yearOfBirth: Int,
-                favoriteFoods: List[String]
-              )

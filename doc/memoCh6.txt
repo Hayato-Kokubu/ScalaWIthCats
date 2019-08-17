@@ -49,4 +49,23 @@ type checked なのは、特筆すべきほどのことか？
 
 
 
+product : monad では、map とflatMap で実装している。
+          list, either では不便だが、高階の場合に都合がいいことがあるという。
 
+Monad ではなく、Semigropual のインスタンスを作るのに向いているため。
+error handling で役にたつ。
+
+
+
+Validated Eitherと比較される
+
+Either    fail-fast    1つ目のエラーを返す
+Validated accumulating 全てのエラーを返す
+
+Validation.valid
+           invalid    : smart constructor
+
+他にも、Either.as(Left/Right), Option.some , none とかがある
+
+raize, raizeError も使える
+それぞれ syntax.applicative, syntax.appicativeError が必要
