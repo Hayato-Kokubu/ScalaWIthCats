@@ -1,11 +1,18 @@
-import exercise.ch6.UserInputParser
+import scala.language.higherKinds
+import cats.{Functor, Semigroupal}
 
 object Main extends App {
 
-  val input = Map("name" -> "taro", "age" -> "20", "birthday" -> "12/12")
+}
 
-  val res = UserInputParser(input).apply
 
-  println(res)
+trait Apply[F[_]] extends Semigroupal[F] with Functor[F] {
+  def ap[A, B](ff: F[A => B])(fa: F[A]): F[B]
 
+  def product[A, B](fa: F[A], fb: F[B]): F[(A, B)] =
+    ap(map(fa)(a => (b: B) => (a, b)))(fb)
+}
+
+trait Applicative[F[_]] extends Apply[F] {
+  def pure[A](a: A): F[A]
 }

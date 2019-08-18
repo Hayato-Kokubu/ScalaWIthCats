@@ -94,3 +94,43 @@ toValidated
 withEither , withValidated
   Validated 使用中に一時的にEither のflatMap を使いたい時にできる
   => そんなことあるか？
+
+
+Semigroupal Applicative Functor と関連している
+... 出たなApplicative
+
+2つのclass がある
+ap  Apply  <--------- Semigroupal
+              |
+              └---- Functor
+
+def ap[A, B](ff: F[A => B])(fa: F[A]): F[B]
+
+pure Applicative <--------- Apply
+
+def pure[A](a: A): F[A]
+
+
+Semigroupal はmonoidalとも呼ばれる？
+
+Semigroupal.product は ap と map で作られる
+
+
+Applicative <-- relateddd  --> Apply
+Monad  <-- reralted  --> SemiGroup
+
+なぜかdとnが表示されないとらぶる。。。
+abcdefghijklmnopqrstuvwxyz
+
+
+Monad <-- Applicative / FlatMap を持つ
+Monad(pure, flatMap) <--┬-- Applicative(pure) <--┬-- Apply(ap) <--┬-- Cartesian(product)
+                        |                        |                |
+                        |                        |                └---- Functor(map)
+                        └---- FlatMap(flatMap) <-┘
+
+pure, flatMap から, ap が作れる
+ap からproduct, map がつくれる？
+
+Foo: Monad
+Bar: Applicative
