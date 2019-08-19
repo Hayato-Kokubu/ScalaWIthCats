@@ -1,0 +1,8 @@
+ch7 Foldable, Traverse
+
+Foldable: foldLeft, foldRight 操作の抽象化
+Traverse Applicative の高階化
+
+fold は複雑で、traverseが便利になる
+
+Stream を使いこなせるようになりたい。。。

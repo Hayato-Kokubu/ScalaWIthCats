@@ -1,18 +1,15 @@
-import scala.language.higherKinds
-import cats.{Functor, Semigroupal}
-
 object Main extends App {
 
-}
+  def show[A](list: List[A]): String =
+    list.foldLeft("nil")((accum, item) => s"$item then $accum")
+
+  val a = show(Nil)
+  // res0: String = nil
+  println(a)
+
+  val b = show(List(1, 2, 3))
+  // res1: String = 3 then 2 then 1 then nil
+  println(b)
 
 
-trait Apply[F[_]] extends Semigroupal[F] with Functor[F] {
-  def ap[A, B](ff: F[A => B])(fa: F[A]): F[B]
-
-  def product[A, B](fa: F[A], fb: F[B]): F[(A, B)] =
-    ap(map(fa)(a => (b: B) => (a, b)))(fb)
-}
-
-trait Applicative[F[_]] extends Apply[F] {
-  def pure[A](a: A): F[A]
 }
