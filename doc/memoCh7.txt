@@ -11,3 +11,12 @@ Foldable は List や Vector , Stream と Option で使える！
 
 Option: 値があったら演算 なかったら初期値
 
+foldRight: Eval を使っている => stack safe
+元のコレクション.folaRight はstack safe とはかぎらない
+
+※ Eval が返ってくることに注意！
+
+
+List, Vector では 1 to 100000 ぐらいのfoldRight では大丈夫
+
+

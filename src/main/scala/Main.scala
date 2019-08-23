@@ -1,24 +1,24 @@
-import cats.Foldable
+import cats.{Eval, Foldable}
 
-import cats.syntax.option._
+import cats.instances.stream._
+
 
 object Main extends App {
 
-  val ints = List(1,2,3)
-  val noInt = List.empty[Int]
 
-  import cats.instances.list._ // for Foldable[List].apply
-  val resInts = Foldable[List].foldLeft(ints, 0)(_ + _)
-  println(resInts)
-  val resNoInt = Foldable[List].foldLeft(noInt, 0)(_ + _)
-  println(resNoInt)
+  def bigData = (1 to 100000).toStream
+
+  // cause StackOverFlow
+  // bigData.foldRight(0L)(_ + _)
 
 
-  import cats.instances.option._
-  val maybeInt = Option(123)
-  val noneInt = none[Int]
-  val resOpt = Foldable[Option].foldLeft(maybeInt, 10)(_ * _)
-  val resNone = Foldable[Option].foldLeft(noneInt, 10)(_ * _)
-  println(resOpt)
-  println(resNone)
+  val eval: Eval[Long] = {
+    Foldable[Stream].foldRight(bigData, Eval.now(0L)){ (num, eval) =>
+      eval.map(_ + num)
+    }
+  }
+
+  val res = eval.value
+  println(res)
+
 }
