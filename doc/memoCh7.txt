@@ -6,3 +6,8 @@ Traverse Applicative の高階化
 fold は複雑で、traverseが便利になる
 
 Stream を使いこなせるようになりたい。。。
+
+Foldable は List や Vector , Stream と Option で使える！
+
+Option: 値があったら演算 なかったら初期値
+

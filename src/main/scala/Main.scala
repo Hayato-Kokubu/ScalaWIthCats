@@ -1,15 +1,24 @@
+import cats.Foldable
+
+import cats.syntax.option._
+
 object Main extends App {
 
-  def show[A](list: List[A]): String =
-    list.foldLeft("nil")((accum, item) => s"$item then $accum")
+  val ints = List(1,2,3)
+  val noInt = List.empty[Int]
 
-  val a = show(Nil)
-  // res0: String = nil
-  println(a)
-
-  val b = show(List(1, 2, 3))
-  // res1: String = 3 then 2 then 1 then nil
-  println(b)
+  import cats.instances.list._ // for Foldable[List].apply
+  val resInts = Foldable[List].foldLeft(ints, 0)(_ + _)
+  println(resInts)
+  val resNoInt = Foldable[List].foldLeft(noInt, 0)(_ + _)
+  println(resNoInt)
 
 
+  import cats.instances.option._
+  val maybeInt = Option(123)
+  val noneInt = none[Int]
+  val resOpt = Foldable[Option].foldLeft(maybeInt, 10)(_ * _)
+  val resNone = Foldable[Option].foldLeft(noneInt, 10)(_ * _)
+  println(resOpt)
+  println(resNone)
 }
