@@ -20,3 +20,14 @@ foldRight: Eval を使っている => stack safe
 List, Vector では 1 to 100000 ぐらいのfoldRight では大丈夫
 
 
+CanBuildFrom は何もの？
+Future についてはFuture.traverse でやれそう？
+=> 内部で同じことをしているだけ。。。
+Future.sequence: List[Future] を Future[List] に変換
+
+Catas.Traverse は、Future のこの性質を
+任意のApplicative: Future, Option,Validated などに応用
+// Validated はApplicative だっけ？ 要復習
+
+
+
