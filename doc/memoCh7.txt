@@ -30,4 +30,5 @@ Catas.Traverse は、Future のこの性質を
 // Validated はApplicative だっけ？ 要復習
 
 
-
+Traverce[F[_]] と
+中のtraverse[G[_]] でのF と G のやくわりのちがいをみたい。。。
