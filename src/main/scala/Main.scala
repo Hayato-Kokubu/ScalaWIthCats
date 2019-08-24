@@ -3,6 +3,10 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
 
 
+import cats.syntax.applicative._
+import cats.instances.future._
+import cats.syntax.apply._ // use mapN
+
 object Main extends App {
 
   val hostnames = List(
@@ -14,29 +18,23 @@ object Main extends App {
   def getUptime(hostname: String): Future[Int] =
     Future(hostname.length * 60) // just for demonstration
 
-  // expected Future[List[Int]] but get List[Future[Int]]
-//  val myUptimes: Future[List[Int]] =
-//    hostnames.map(getUptime)
 
-  // 途中結果のFutureを毎回剥がして結果をFutureで包むのがよくない
-  val allUptimes: Future[List[Int]] =
-    hostnames.foldLeft(Future(List.empty[Int])) {
-      (accum, host) =>
-        val uptime = getUptime(host)
-        for {
-          accum  <- accum
-          uptime <- uptime
-        } yield accum :+ uptime
-    }
+  List.empty[Int].pure[Future]
 
-  val res2 = Await.result(allUptimes, 1.second)
-  // res2: List[Int] = List(1020, 960, 840)
+  def oldCombine(
+    accum : Future[List[Int]],
+    host  : String
+  ): Future[List[Int]] = {
+    val uptime = getUptime(host)
+    for {
+      accum  <- accum
+      uptime <- uptime
+    } yield accum :+ uptime
+  }
 
-  println(res2)
-
-
-  // CanBuildFrom はよくわからんが使えてる。。。
-  val allUptimes2: Future[List[Int]] =
-    Future.traverse(hostnames)(getUptime)
-
+  def newCombine(
+    accum: Future[List[Int]],
+    host: String
+  ): Future[List[Int]] =
+    (accum, getUptime(host)).mapN(_ :+ _)
 }
