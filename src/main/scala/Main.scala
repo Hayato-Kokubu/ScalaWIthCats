@@ -2,50 +2,62 @@ import exercise.MonoidTester
 
 object Main extends App{
 
+  // n^3
   val anyBooleanTriples = Seq(
-    (true, true, true),
-    (true, true, false),
-    (true, false, true),
-    (true, false, false),
-    (false, true, true),
-    (false, true, false),
-    (false, false, true),
-    (false, false, false),
+    (A1, A1, A1),
+    (A1, A1, A2),
+    (A1, A2, A1),
+    (A1, A2, A2),
+    (A2, A1, A1),
+    (A2, A1, A2),
+    (A2, A2, A1),
+    (A2, A2, A2),
   )
 
+  // 2^(n^2)
   val allBooleanOperations = Seq(
-    ( true,  true,  true,  true),
-    ( true,  true,  true, false),
-    ( true,  true, false,  true),
-    ( true,  true, false, false),
-    ( true, false,  true,  true),
-    ( true, false,  true, false),
-    ( true, false, false,  true),
-    ( true, false, false, false),
-    (false,  true,  true,  true),
-    (false,  true,  true, false),
-    (false,  true, false,  true),
-    (false,  true, false, false),
-    (false, false,  true,  true),
-    (false, false,  true, false),
-    (false, false, false,  true),
-    (false, false, false, false),
+    ( A1,  A1,  A1,  A1),
+    ( A1,  A1,  A1, A2),
+    ( A1,  A1, A2,  A1),
+    ( A1,  A1, A2, A2),
+    ( A1, A2,  A1,  A1),
+    ( A1, A2,  A1, A2),
+    ( A1, A2, A2,  A1),
+    ( A1, A2, A2, A2),
+    (A2,  A1,  A1,  A1),
+    (A2,  A1,  A1, A2),
+    (A2,  A1, A2,  A1),
+    (A2,  A1, A2, A2),
+    (A2, A2,  A1,  A1),
+    (A2, A2,  A1, A2),
+    (A2, A2, A2,  A1),
+    (A2, A2, A2, A2),
   )
 
-  val identityCandidates = Seq(true, false)
+  // n
+  val identityCandidates = Seq(A1, A2)
 
-  def * (op : ( Boolean, Boolean, Boolean, Boolean ) ): (Boolean, Boolean) => Boolean = {
-    case (true, true) => op._1
-    case (true, false) => op._2
-    case (false, true) => op._3
-    case (false, false) => op._4
+  def * (op : ( Target, Target, Target, Target ) ): (Target, Target) => Target = {(x, y) =>
+    (x, y) match {
+      case (A1, A1) => op._1
+      case (A1, A2) => op._2
+      case (A2, A1) => op._3
+      case (A2, A2) => op._4
+      case _ => throw new IllegalArgumentException(s"invalid Target: ${(x, y)}")
+
+    }
   }
 
   val booleanMonoids = for {
     op <- allBooleanOperations
     e <- identityCandidates
-    if anyBooleanTriples.forall{ bt => new MonoidTester[Boolean](e, bt)(*(op)).test}
+    if anyBooleanTriples.forall{ bt => new MonoidTester[Target](e, bt)(*(op)).test}
   } yield (op, e)
 
   booleanMonoids.foreach(println)
 }
+
+
+trait Target 
+case object A1 extends Target
+case object A2 extends Target
