@@ -1,16 +1,31 @@
 package exercise
 
-class MonoidTester[A](e: A, anyTriples : (A,A,A) )( * : (A, A) => A ) {
 
-  val (a1, a2, a3) = anyTriples
+class MonoidTester(e: MyTarget)( * : (MyTarget, MyTarget) => MyTarget ) {
 
-  def assosiativeLow: Boolean = *( *(a1, a2), a3) == *(a1, *(a2, a3))
+  def assosiativeLow: Boolean =
+    (
+      for {
+        x <- MyTarget.values
+        y <- MyTarget.values
+        z <- MyTarget.values
+      } yield (x, y, z)
+      ).forall{case (xx, yy, zz) => *( *(xx, yy), zz) == *(xx, *(yy, zz))}
 
-  def identityLow: Boolean = {
-    *(a1 , e) == a1 && *(e , a1) == a1 &&
-    *(a2 , e) == a2 && *(e , a2) == a2 &&
-    *(a3 , e) == a3 && *(e , a3) == a3
-  }
+
+  def identityLow: Boolean =
+    MyTarget.values.forall{a => *(a , e) == a && *(e , a) == a}
 
   def test = assosiativeLow && identityLow
+}
+
+sealed trait MyTarget {
+  // いちいち定義しないでやりたい。。。
+  val values: Seq[MyTarget] = Seq(A1, A2)
+}
+case object A1 extends MyTarget
+case object A2 extends MyTarget
+
+object MyTarget{
+  val values: Seq[MyTarget] = Seq(A1, A2)
 }
