@@ -10,7 +10,7 @@ class MonoidTester(e: MyTarget)( * : (MyTarget, MyTarget) => MyTarget ) {
         y <- MyTarget.values
         z <- MyTarget.values
       } yield (x, y, z)
-      ).forall{case (xx, yy, zz) => *( *(xx, yy), zz) == *(xx, *(yy, zz))}
+    ).forall{case (xx, yy, zz) => *( *(xx, yy), zz) == *(xx, *(yy, zz))}
 
 
   def identityLow: Boolean =
@@ -20,12 +20,11 @@ class MonoidTester(e: MyTarget)( * : (MyTarget, MyTarget) => MyTarget ) {
 }
 
 sealed trait MyTarget {
-  // いちいち定義しないでやりたい。。。
-  val values: Seq[MyTarget] = Seq(A1, A2)
 }
 case object A1 extends MyTarget
 case object A2 extends MyTarget
 
 object MyTarget{
+  // いちいち定義しないでやりたい。。。
   val values: Seq[MyTarget] = Seq(A1, A2)
 }
